@@ -1,0 +1,27 @@
+# 作业用 CI/CD 流水线
+name: Python CI 自动化测试
+
+# 触发条件：代码一 push 就自动运行
+on:
+  push:
+    branches: [ main ]
+
+# 任务
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest  # 在Linux服务器上运行
+
+    steps:
+      # 1. 拉取代码
+      - name: 拉取代码
+        uses: actions/checkout@v4
+
+      # 2. 设置Python环境
+      - name: 设置Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # 3. 运行单元测试
+      - name: 运行测试
+        run: python -m unittest test_math.py
